@@ -30,34 +30,47 @@ public class TransferSuggestion {
 
     private LocalDateTime suggestedAt = LocalDateTime.now();
 
-    // Constructors
+    
+
+
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id; 
     }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Store getSourceStore() { return sourceStore; }
+    public Store getSourceStore() { 
+        return sourceStore; 
+    }
     public void setSourceStore(Store sourceStore) {
         this.sourceStore = sourceStore;
     }
 
-    public Store getTargetStore() { return targetStore; }
+    public Store getTargetStore() { 
+        return targetStore; 
+    }
     public void setTargetStore(Store targetStore) {
         this.targetStore = targetStore;
     }
 
-    public Product getProduct() { return product; }
+    public Product getProduct() { 
+        return product; 
+    }
     public void setProduct(Product product) {
         this.product = product;
     }
 
-    public Integer getQuantity() { return quantity; }
+    public Integer getQuantity() { 
+        return quantity; 
+    }
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public String getPriority() { return priority; }
+    public String getPriority() { 
+        return priority; 
+    }
     public void setPriority(String priority) {
         this.priority = priority;
     }
@@ -77,14 +90,13 @@ public class TransferSuggestion {
     }
 
 
-    public TransferSuggestion(Store sourceStore, Store targetStore,
-                              Product product, Integer quantity, String priority) {
+    public TransferSuggestion(Store sourceStore, Store targetStore,Product product, Integer quantity, String priority) {
         this.sourceStore = sourceStore;
         this.targetStore = targetStore;
         this.product = product;
         this.quantity = quantity;
         this.priority = priority;
-    
+    }
     
     public TransferSuggestion() {
 
