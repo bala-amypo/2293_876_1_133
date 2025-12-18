@@ -23,10 +23,60 @@ public class InventoryLevel {
 
     private LocalDateTime lastUpdated;
 
+   
+
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id; 
+    }
+
+    public Store getStore() { 
+        return store; 
+    }
+    public void setStore(Store store) { 
+        this.store = store; 
+    }
+
+    public Product getProduct() { 
+        return product; 
+    }
+    public void setProduct(Product product) { 
+        this.product = product; 
+    }
+
+    public Integer getQuantity() { 
+        return quantity; 
+    }
+    public void setQuantity(Integer quantity) { 
+        this.quantity = quantity; 
+    }
+
+    public LocalDateTime getLastUpdated() { 
+        return lastUpdated; 
+    }
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+
+    
+
+    public InventoryLevel(Store store, Product product, Integer quantity) {
+        this.store = store;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
     @PrePersist
     @PreUpdate
     public void updateTimestamp() {
         this.lastUpdated = LocalDateTime.now();
     }
 
+
+    public InventoryLevel() {
+    
+    }
 }

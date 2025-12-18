@@ -25,13 +25,23 @@ public class Product {
 
 
    
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id; 
+    }
 
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
+    public String getSku() { 
+        return sku; 
+    }
+    public void setSku(String sku) { 
+        this.sku = sku; 
+    }
 
-    public String getName() { return name; }
+    public String getName() { 
+        return name; 
+    }
     public void setName(String name) { 
         this.name = name; 
     }
