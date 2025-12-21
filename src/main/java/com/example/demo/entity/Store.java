@@ -3,9 +3,10 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "stores", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "storeName")
-})
+@Table(
+    name = "stores",
+    uniqueConstraints = @UniqueConstraint(columnNames = "storeName")
+)
 public class Store {
 
     @Id
@@ -18,21 +19,49 @@ public class Store {
     private String address;
     private String region;
 
+    @Column(nullable = false)
     private Boolean active = true;
 
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    
 
-    public String getStoreName() { return storeName; }
-    public void setStoreName(String storeName) { this.storeName = storeName; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getStoreName() {
+        return storeName;
+    }
 
-    public String getRegion() { return region; }
-    public void setRegion(String region) { this.region = region; }
+    public String getAddress() {
+        return address;
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public String getRegion() {
+        return region;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+  
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }

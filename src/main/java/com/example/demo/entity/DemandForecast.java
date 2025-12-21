@@ -17,27 +17,62 @@ public class DemandForecast {
     @ManyToOne(optional = false)
     private Store store;
 
+    @Column(nullable = false)
     private LocalDate forecastDate;
 
+    @Column(nullable = false)
     private Integer predictedDemand;
 
     private Double confidenceScore;
 
-    // Getters and setters
-    public Long getId() { return id; }
+  
 
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
+    public Long getId() {
+        return id;
+    }
 
-    public Store getStore() { return store; }
-    public void setStore(Store store) { this.store = store; }
+    public Product getProduct() {
+        return product;
+    }
 
-    public LocalDate getForecastDate() { return forecastDate; }
-    public void setForecastDate(LocalDate forecastDate) { this.forecastDate = forecastDate; }
+    public Store getStore() {
+        return store;
+    }
 
-    public Integer getPredictedDemand() { return predictedDemand; }
-    public void setPredictedDemand(Integer predictedDemand) { this.predictedDemand = predictedDemand; }
+    public LocalDate getForecastDate() {
+        return forecastDate;
+    }
 
-    public Double getConfidenceScore() { return confidenceScore; }
-    public void setConfidenceScore(Double confidenceScore) { this.confidenceScore = confidenceScore; }
+    public Integer getPredictedDemand() {
+        return predictedDemand;
+    }
+
+    public Double getConfidenceScore() {
+        return confidenceScore;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setForecastDate(LocalDate forecastDate) {
+        this.forecastDate = forecastDate;
+    }
+
+    public void setPredictedDemand(Integer predictedDemand) {
+        this.predictedDemand = predictedDemand;
+    }
+
+    public void setConfidenceScore(Double confidenceScore) {
+        this.confidenceScore = confidenceScore;
+    }
 }

@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Store;
-import com.example.demo.service.StoreService;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.Store;
+import com.example.demo.service.StoreService;
 
 @RestController
 @RequestMapping("/api/stores")
@@ -16,30 +18,35 @@ public class StoreController {
         this.storeService = storeService;
     }
 
+  
     @PostMapping
-    public Store create(@RequestBody Store store) {
-        return storeService.createStore(store);
+    public ResponseEntity<Store> createStore(@RequestBody Store store) {
+        return ResponseEntity.ok(storeService.createStore(store));
     }
 
     @GetMapping("/{id}")
-    public Store getById(@PathVariable Long id) {
-        return storeService.getStoreById(id);
+    public ResponseEntity<Store> getStoreById(@PathVariable Long id) {
+        return ResponseEntity.ok(storeService.getStoreById(id));
     }
+
 
     @GetMapping
-    public List<Store> getAll() {
-        return storeService.getAllStores();
+    public ResponseEntity<List<Store>> getAllStores() {
+        return ResponseEntity.ok(storeService.getAllStores());
     }
+
 
     @PutMapping("/{id}")
-    public Store update(
+    public ResponseEntity<Store> updateStore(
             @PathVariable Long id,
             @RequestBody Store store) {
-        return storeService.updateStore(id, store);
+        return ResponseEntity.ok(storeService.updateStore(id, store));
     }
 
-    @DeleteMapping("/{id}")
-    public void deactivate(@PathVariable Long id) {
+
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivateStore(@PathVariable Long id) {
         storeService.deactivateStore(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -3,9 +3,10 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "products", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "sku")
-})
+@Table(
+    name = "products",
+    uniqueConstraints = @UniqueConstraint(columnNames = "sku")
+)
 public class Product {
 
     @Id
@@ -20,21 +21,50 @@ public class Product {
 
     private String category;
 
+    @Column(nullable = false)
     private Boolean active = true;
 
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+   
 
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getSku() {
+        return sku;
+    }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public String getName() {
+        return name;
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public String getCategory() {
+        return category;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+  
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
