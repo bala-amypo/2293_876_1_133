@@ -1,39 +1,43 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.InventoryLevel;
-import com.example.demo.service.InventoryLevelService;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.InventoryLevel;
+import com.example.demo.service.InventoryLevelService;
 
 @RestController
 @RequestMapping("/api/inventory")
-public class InventoryController {
+public class InventoryLevelController {
 
-    private final InventoryLevelService inventoryService;
+    private final InventoryLevelService inventoryLevelService;
 
-    public InventoryController(InventoryLevelService inventoryService) {
-        this.inventoryService = inventoryService;
+    public InventoryLevelController(InventoryLevelService inventoryLevelService) {
+        this.inventoryLevelService = inventoryLevelService;
     }
 
+  
     @PostMapping
-    public InventoryLevel createOrUpdate(
+    public ResponseEntity<InventoryLevel> createOrUpdateInventory(
             @RequestBody InventoryLevel inventory) {
-
-        return inventoryService.createOrUpdateInventory(inventory);
+        return ResponseEntity.ok(
+                inventoryLevelService.createOrUpdateInventory(inventory));
     }
 
     @GetMapping("/store/{storeId}")
-    public List<InventoryLevel> byStore(
+    public ResponseEntity<List<InventoryLevel>> getInventoryForStore(
             @PathVariable Long storeId) {
-
-        return inventoryService.getInventoryForStore(storeId);
+        return ResponseEntity.ok(
+                inventoryLevelService.getInventoryForStore(storeId));
     }
 
+  
     @GetMapping("/product/{productId}")
-    public List<InventoryLevel> byProduct(
+    public ResponseEntity<List<InventoryLevel>> getInventoryForProduct(
             @PathVariable Long productId) {
-
-        return inventoryService.getInventoryForProduct(productId);
+        return ResponseEntity.ok(
+                inventoryLevelService.getInventoryForProduct(productId));
     }
 }
