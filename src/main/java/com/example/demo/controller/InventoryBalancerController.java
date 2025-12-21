@@ -1,38 +1,43 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.TransferSuggestion;
-import com.example.demo.service.InventoryBalancerService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.InventoryLevel;
+import com.example.demo.service.InventoryLevelService;
+
 @RestController
-@RequestMapping("/api/balance")
-public class InventoryBalancerController {
+@RequestMapping("/api/inventory")
+public class InventoryLevelController {
 
-    private final InventoryBalancerService balancerService;
+    private final InventoryLevelService inventoryLevelService;
 
-    public InventoryBalancerController(
-            InventoryBalancerService balancerService) {
-        this.balancerService = balancerService;
+    public InventoryLevelController(InventoryLevelService inventoryLevelService) {
+        this.inventoryLevelService = inventoryLevelService;
     }
 
-    @PostMapping("/{productId}")
-    public List<TransferSuggestion> generate(
-            @PathVariable Long productId) {
-
-        return balancerService.generateSuggestions(productId);
+  
+    @PostMapping
+    public ResponseEntity<InventoryLevel> createOrUpdateInventory(
+            @RequestBody InventoryLevel inventory) {
+        return ResponseEntity.ok(
+                inventoryLevelService.createOrUpdateInventory(inventory));
     }
 
     @GetMapping("/store/{storeId}")
-    public List<TransferSuggestion> byStore(
+    public ResponseEntity<List<InventoryLevel>> getInventoryForStore(
             @PathVariable Long storeId) {
-
-        return balancerService.getSuggestionsForStore(storeId);
+        return ResponseEntity.ok(
+                inventoryLevelService.getInventoryForStore(storeId));
     }
 
-    @GetMapping("/{id}")
-    public TransferSuggestion byId(@PathVariable Long id) {
-        return balancerService.getSuggestionById(id);
+  
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<List<InventoryLevel>> getInventoryForProduct(
+            @PathVariable Long productId) {
+        return ResponseEntity.ok(
+                inventoryLevelService.getInventoryForProduct(productId));
     }
 }

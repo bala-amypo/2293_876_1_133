@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Product;
-import com.example.demo.service.ProductService;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.Product;
+import com.example.demo.service.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
@@ -16,23 +18,29 @@ public class ProductController {
         this.productService = productService;
     }
 
+    
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return productService.createProduct(product);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        return ResponseEntity.ok(productService.createProduct(product));
     }
 
+    
     @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
+  
     @GetMapping
-    public List<Product> getAll() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    @DeleteMapping("/{id}")
-    public void deactivate(@PathVariable Long id) {
+  
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivateProduct(@PathVariable Long id) {
         productService.deactivateProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }
+
