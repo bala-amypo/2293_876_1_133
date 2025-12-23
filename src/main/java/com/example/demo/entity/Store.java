@@ -66,3 +66,13 @@ public class Store {
     }
 }
 
+
+public Store() {
+}
+
+public Store(String storeName, String address, String region) {
+    this.storeName = storeName;
+    this.address = address;
+    this.region = region;
+    this.active = true;
+}
