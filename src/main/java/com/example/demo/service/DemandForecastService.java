@@ -1,13 +1,26 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.entity.DemandForecast;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.repository.DemandForecastRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.List;
 
-public interface DemandForecastService {
+@Service
+public class DemandForecastService {
+    @Autowired
+    private DemandForecastRepository demandForecastRepository;
 
-    DemandForecast createForecast(DemandForecast forecast);
+    public DemandForecast createForecast(DemandForecast forecast) {
+        if (forecast.getForecastDate().isBefore(LocalDate.now())) {
+            throw new BadRequestException("Forecast date cannot be in the past");
+        }
+        return demandForecastRepository.save(forecast);
+    }
 
-    List<DemandForecast> getForecastByStore(Long storeId);
-
-    List<DemandForecast> getForecastByProduct(Long productId);
+    public List<DemandForecast> getForecastsForStore(Long storeId) {
+        return demandForecastRepository.findByStore_Id(storeId);
+    }
 }
