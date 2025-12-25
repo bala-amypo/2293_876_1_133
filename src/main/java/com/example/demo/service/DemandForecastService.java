@@ -7,7 +7,7 @@ public interface DemandForecastService {
 
     DemandForecast createForecast(DemandForecast forecast);
 
-    List<DemandForecast> getForecastsForStore(Long storeId);
+    List<DemandForecast> getForecastByStore(Long storeId);
 
-    DemandForecast getForecast(Long storeId, Long productId);
+    List<DemandForecast> getForecastByProduct(Long productId);
 }
