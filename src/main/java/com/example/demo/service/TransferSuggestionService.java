@@ -1,11 +1,11 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import java.util.List;
-import com.example.demo.entity.TransferSuggestion;
+// import java.util.List;
+// import com.example.demo.entity.TransferSuggestion;
 
-public interface TransferSuggestionService {
+// public interface TransferSuggestionService {
 
-    TransferSuggestion createSuggestion(TransferSuggestion suggestion);
+//     TransferSuggestion createSuggestion(TransferSuggestion suggestion);
 
-    List<TransferSuggestion> getSuggestionsByProduct(Long productId);
-}
+//     List<TransferSuggestion> getSuggestionsByProduct(Long productId);
+// }

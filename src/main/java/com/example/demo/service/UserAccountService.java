@@ -1,15 +1,15 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import java.util.List;
-import com.example.demo.entity.UserAccount;
+// import java.util.List;
+// import com.example.demo.entity.UserAccount;
 
-public interface UserAccountService {
+// public interface UserAccountService {
 
-    UserAccount createUser(UserAccount user);
+//     UserAccount createUser(UserAccount user);
 
-    UserAccount getUserById(Long id);
+//     UserAccount getUserById(Long id);
 
-    UserAccount getUserByEmail(String email);
+//     UserAccount getUserByEmail(String email);
 
-    List<UserAccount> getAllUsers();
-}
+//     List<UserAccount> getAllUsers();
+// }
