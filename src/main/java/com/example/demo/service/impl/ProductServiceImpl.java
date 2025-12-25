@@ -1,32 +1,40 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.InventoryLevel;
-import com.example.demo.repository.InventoryLevelRepository;
-import com.example.demo.service.InventoryService;
+
+import com.example.demo.entity.Product;
+import com.example.demo.repository.ProductRepository;
+import com.example.demo.service.ProductService;
 
 @Service
-public class InventoryServiceImpl implements InventoryService {
+public class ProductServiceImpl implements ProductService {
 
-    private final InventoryLevelRepository repository;
+    private final ProductRepository productRepository;
 
-    public InventoryServiceImpl(InventoryLevelRepository repository) {
-        this.repository = repository;
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
-    public InventoryLevel updateInventory(InventoryLevel inventory) {
-        return repository.save(inventory);
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
-    public List<InventoryLevel> getInventoryByStore(Long storeId) {
-        return repository.findByStore_Id(storeId);
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public List<InventoryLevel> getInventoryByProduct(Long productId) {
-        return repository.findByProduct_Id(productId);
+    public Product getById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
+    @Override
+    public void delete(Long id) {
+        productRepository.deleteById(id);
     }
 }
