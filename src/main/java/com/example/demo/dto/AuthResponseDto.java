@@ -6,7 +6,7 @@ public class AuthResponseDto {
 
     public AuthResponseDto() {}
 
-    public AuthResponseDTO(String token) {
+    public AuthResponseDto(String token) {
         this.token = token;
     }
 

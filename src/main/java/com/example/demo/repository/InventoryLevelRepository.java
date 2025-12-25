@@ -1,12 +1,15 @@
 package com.example.demo.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+
 import com.example.demo.entity.InventoryLevel;
+import com.example.demo.entity.Product;
+import com.example.demo.entity.Store;
 
-public interface InventoryLevelRepository extends JpaRepository<InventoryLevel, Long> {
+public interface InventoryLevelRepository
+        extends JpaRepository<InventoryLevel, Long> {
 
-    List<InventoryLevel> findByStore_Id(Long storeId);
-
-    List<InventoryLevel> findByProduct_Id(Long productId);
+    Optional<InventoryLevel> findByStoreAndProduct(Store store, Product product);
 }
