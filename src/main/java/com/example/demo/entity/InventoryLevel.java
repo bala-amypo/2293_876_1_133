@@ -1,11 +1,15 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"store_id", "product_id"})
+    @UniqueConstraint(columnNames = {"store_id", "product_id"})
 })
 public class InventoryLevel {
 
@@ -20,21 +24,11 @@ public class InventoryLevel {
     private Product product;
 
     private Integer quantity;
-
     private LocalDateTime lastUpdated;
 
     @PrePersist
     @PreUpdate
-    void updateTime() {
+    public void updateTime() {
         lastUpdated = LocalDateTime.now();
     }
-
-    public Long getId() { return id; }
-    public Store getStore() { return store; }
-    public void setStore(Store store) { this.store = store; }
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
-    public LocalDateTime getLastUpdated() { return lastUpdated; }
 }
