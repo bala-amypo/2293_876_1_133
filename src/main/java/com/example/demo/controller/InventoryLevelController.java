@@ -1,43 +1,32 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.InventoryLevel;
-import com.example.demo.service.InventoryLevelService;
+import com.example.demo.service.InventoryService;
 
 @RestController
 @RequestMapping("/api/inventory")
-public class InventoryLevelController {
+public class InventoryController {
 
-    private final InventoryLevelService inventoryLevelService;
+    private final InventoryService service;
 
-    public InventoryLevelController(InventoryLevelService inventoryLevelService) {
-        this.inventoryLevelService = inventoryLevelService;
+    public InventoryController(InventoryService service) {
+        this.service = service;
     }
 
-  
     @PostMapping
-    public ResponseEntity<InventoryLevel> createOrUpdateInventory(
-            @RequestBody InventoryLevel inventory) {
-        return ResponseEntity.ok(
-                inventoryLevelService.createOrUpdateInventory(inventory));
+    public InventoryLevel update(@RequestBody InventoryLevel inventory) {
+        return service.updateInventory(inventory);
     }
 
     @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<InventoryLevel>> getInventoryForStore(
-            @PathVariable Long storeId) {
-        return ResponseEntity.ok(
-                inventoryLevelService.getInventoryForStore(storeId));
+    public List<InventoryLevel> byStore(@PathVariable Long storeId) {
+        return service.getInventoryByStore(storeId);
     }
 
-  
     @GetMapping("/product/{productId}")
-    public ResponseEntity<List<InventoryLevel>> getInventoryForProduct(
-            @PathVariable Long productId) {
-        return ResponseEntity.ok(
-                inventoryLevelService.getInventoryForProduct(productId));
+    public List<InventoryLevel> byProduct(@PathVariable Long productId) {
+        return service.getInventoryByProduct(productId);
     }
 }

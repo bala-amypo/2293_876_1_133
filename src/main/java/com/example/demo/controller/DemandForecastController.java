@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.DemandForecast;
 import com.example.demo.service.DemandForecastService;
 
@@ -12,32 +9,24 @@ import com.example.demo.service.DemandForecastService;
 @RequestMapping("/api/forecasts")
 public class DemandForecastController {
 
-    private final DemandForecastService demandForecastService;
+    private final DemandForecastService service;
 
-    public DemandForecastController(DemandForecastService demandForecastService) {
-        this.demandForecastService = demandForecastService;
+    public DemandForecastController(DemandForecastService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<DemandForecast> createForecast(
-            @RequestBody DemandForecast forecast) {
-        return ResponseEntity.ok(
-                demandForecastService.createForecast(forecast));
+    public DemandForecast create(@RequestBody DemandForecast forecast) {
+        return service.createForecast(forecast);
     }
 
-    
     @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<DemandForecast>> getForecastsForStore(
-            @PathVariable Long storeId) {
-        return ResponseEntity.ok(
-                demandForecastService.getForecastsForStore(storeId));
+    public List<DemandForecast> byStore(@PathVariable Long storeId) {
+        return service.getForecastByStore(storeId);
     }
 
-    @GetMapping("/store/{storeId}/product/{productId}")
-    public ResponseEntity<DemandForecast> getForecast(
-            @PathVariable Long storeId,
-            @PathVariable Long productId) {
-        return ResponseEntity.ok(
-                demandForecastService.getForecast(storeId, productId));
+    @GetMapping("/product/{productId}")
+    public List<DemandForecast> byProduct(@PathVariable Long productId) {
+        return service.getForecastByProduct(productId);
     }
 }
