@@ -5,9 +5,11 @@ import com.example.demo.entity.Product;
 
 public interface ProductService {
 
-    Product createProduct(Product product);
+    Product save(Product product);
 
-    Product getProductById(Long id);
+    List<Product> getAllProducts();   // ⚠ method name must match
 
-    List<Product> getAllProducts();
+    Product getById(Long id);
+
+    void delete(Long id);
 }

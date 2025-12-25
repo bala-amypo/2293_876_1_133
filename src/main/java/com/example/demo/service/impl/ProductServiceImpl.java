@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> getAllProducts() {   // ⚠ must match interface
         return productRepository.findAll();
     }
 
