@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.Store;
 import com.example.demo.service.StoreService;
 
@@ -12,41 +9,24 @@ import com.example.demo.service.StoreService;
 @RequestMapping("/api/stores")
 public class StoreController {
 
-    private final StoreService storeService;
+    private final StoreService service;
 
-    public StoreController(StoreService storeService) {
-        this.storeService = storeService;
+    public StoreController(StoreService service) {
+        this.service = service;
     }
 
-  
     @PostMapping
-    public ResponseEntity<Store> createStore(@RequestBody Store store) {
-        return ResponseEntity.ok(storeService.createStore(store));
+    public Store create(@RequestBody Store store) {
+        return service.createStore(store);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Store> getStoreById(@PathVariable Long id) {
-        return ResponseEntity.ok(storeService.getStoreById(id));
+    public Store get(@PathVariable Long id) {
+        return service.getStoreById(id);
     }
-
 
     @GetMapping
-    public ResponseEntity<List<Store>> getAllStores() {
-        return ResponseEntity.ok(storeService.getAllStores());
-    }
-
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Store> updateStore(
-            @PathVariable Long id,
-            @RequestBody Store store) {
-        return ResponseEntity.ok(storeService.updateStore(id, store));
-    }
-
-
-    @PutMapping("/{id}/deactivate")
-    public ResponseEntity<Void> deactivateStore(@PathVariable Long id) {
-        storeService.deactivateStore(id);
-        return ResponseEntity.noContent().build();
+    public List<Store> list() {
+        return service.getAllStores();
     }
 }

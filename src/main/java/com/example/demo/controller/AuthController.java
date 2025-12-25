@@ -1,28 +1,37 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.UserAccount;
-import com.example.demo.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.entity.UserAccount;
+import com.example.demo.service.UserAccountService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/users")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final UserAccountService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<UserAccount> register(@RequestBody UserAccount user) {
-        UserAccount savedUser = authService.register(user);
-        return ResponseEntity.ok(savedUser);
+    public AuthController(UserAccountService service) {
+        this.service = service;
     }
 
- 
-    @PostMapping("/login")
-    public ResponseEntity<UserAccount> login(@RequestParam String email, @RequestParam String password) {
-        UserAccount user = authService.login(email, password);
-        return ResponseEntity.ok(user);
+    @PostMapping
+    public UserAccount register(@RequestBody UserAccount user) {
+        return service.createUser(user);
+    }
+
+    @GetMapping("/{id}")
+    public UserAccount getById(@PathVariable Long id) {
+        return service.getUserById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public UserAccount getByEmail(@PathVariable String email) {
+        return service.getUserByEmail(email);
+    }
+
+    @GetMapping
+    public List<UserAccount> listAll() {
+        return service.getAllUsers();
     }
 }
