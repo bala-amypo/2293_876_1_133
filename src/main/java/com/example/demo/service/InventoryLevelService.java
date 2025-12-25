@@ -4,7 +4,18 @@ import com.example.demo.entity.InventoryLevel;
 import java.util.List;
 
 public interface InventoryLevelService {
-    InventoryLevel createOrUpdateInventory(InventoryLevel inventory);
-    List<InventoryLevel> getInventoryForStore(Long storeId);
-    List<InventoryLevel> getInventoryForProduct(Long productId);
+
+    InventoryLevel save(InventoryLevel inventoryLevel);
+
+    InventoryLevel getById(Long id);
+
+    List<InventoryLevel> getAll();
+
+    List<InventoryLevel> getByStoreId(Long storeId);
+
+    List<InventoryLevel> getByProductId(Long productId);
+
+    InventoryLevel update(Long id, InventoryLevel inventoryLevel);
+
+    void delete(Long id);
 }
