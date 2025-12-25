@@ -1,32 +1,35 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.Store;
 import com.example.demo.service.StoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/stores")
 public class StoreController {
-
-    private final StoreService service;
-
-    public StoreController(StoreService service) {
-        this.service = service;
-    }
+    @Autowired
+    private StoreService storeService;
 
     @PostMapping
-    public Store create(@RequestBody Store store) {
-        return service.createStore(store);
-    }
-
-    @GetMapping("/{id}")
-    public Store get(@PathVariable Long id) {
-        return service.getStoreById(id);
+    public ResponseEntity<Store> createStore(@RequestBody Store store) {
+        return ResponseEntity.ok(storeService.createStore(store));
     }
 
     @GetMapping
-    public List<Store> list() {
-        return service.getAllStores();
+    public ResponseEntity<List<Store>> getAllStores() {
+        return ResponseEntity.ok(storeService.getAllStores());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Store> getStore(@PathVariable Long id) {
+        return ResponseEntity.ok(storeService.getStoreById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody Store store) {
+        return ResponseEntity.ok(storeService.updateStore(id, store));
     }
 }
