@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.InventoryBalancerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.service.InventoryBalancerService;
+
 @RestController
-@RequestMapping("/inventory/balance")
+@RequestMapping("/api/inventory/balance")
 public class InventoryBalancerController {
 
     private final InventoryBalancerService service;
@@ -14,7 +16,8 @@ public class InventoryBalancerController {
     }
 
     @PostMapping
-    public void balanceInventory() {
+    public ResponseEntity<String> balanceInventory() {
         service.balanceInventory();
+        return ResponseEntity.ok("Inventory balanced successfully");
     }
 }

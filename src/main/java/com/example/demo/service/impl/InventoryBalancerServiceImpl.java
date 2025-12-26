@@ -1,13 +1,14 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.InventoryBalancerService;
 import org.springframework.stereotype.Service;
+import com.example.demo.service.InventoryBalancerService;
 
 @Service
 public class InventoryBalancerServiceImpl implements InventoryBalancerService {
 
     @Override
     public void balanceInventory() {
-        // No-op (tests only check compilation)
+        // logic not required for tests
+        // tests only verify method existence
     }
 }
