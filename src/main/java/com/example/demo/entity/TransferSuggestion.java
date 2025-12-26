@@ -5,43 +5,53 @@ import java.time.LocalDateTime;
 
 @Entity
 public class TransferSuggestion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
-    
+
     @ManyToOne
-    @JoinColumn(name = "source_store_id")
     private Store sourceStore;
-    
+
     @ManyToOne
-    @JoinColumn(name = "target_store_id")
     private Store targetStore;
-    
+
     private Integer suggestedQuantity;
     private String reason;
     private LocalDateTime generatedAt;
-    
+
+    public TransferSuggestion() {}
+
+    public TransferSuggestion(Product product, Store sourceStore, Store targetStore,
+                              Integer suggestedQuantity, String reason) {
+        this.product = product;
+        this.sourceStore = sourceStore;
+        this.targetStore = targetStore;
+        this.suggestedQuantity = suggestedQuantity;
+        this.reason = reason;
+    }
+
     @PrePersist
-    public void prePersist() {
-        this.generatedAt = LocalDateTime.now();
+    public void onCreate() {
+        generatedAt = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
     public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
     public Store getSourceStore() { return sourceStore; }
-    public void setSourceStore(Store sourceStore) { this.sourceStore = sourceStore; }
     public Store getTargetStore() { return targetStore; }
-    public void setTargetStore(Store targetStore) { this.targetStore = targetStore; }
     public Integer getSuggestedQuantity() { return suggestedQuantity; }
-    public void setSuggestedQuantity(Integer suggestedQuantity) { this.suggestedQuantity = suggestedQuantity; }
     public String getReason() { return reason; }
-    public void setReason(String reason) { this.reason = reason; }
     public LocalDateTime getGeneratedAt() { return generatedAt; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setProduct(Product product) { this.product = product; }
+    public void setSourceStore(Store sourceStore) { this.sourceStore = sourceStore; }
+    public void setTargetStore(Store targetStore) { this.targetStore = targetStore; }
+    public void setSuggestedQuantity(Integer suggestedQuantity) { this.suggestedQuantity = suggestedQuantity; }
+    public void setReason(String reason) { this.reason = reason; }
     public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
 }
