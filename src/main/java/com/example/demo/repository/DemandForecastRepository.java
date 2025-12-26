@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DemandForecastRepository extends JpaRepository<DemandForecast, Long> {
-    List<DemandForecast> findByStoreId(Long storeId);
+    List<DemandForecast> findByStore_Id(Long storeId);
+    List<DemandForecast> findByProduct_Id(Long productId);
 }
