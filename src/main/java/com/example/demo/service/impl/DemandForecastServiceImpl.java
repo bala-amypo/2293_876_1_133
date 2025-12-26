@@ -17,7 +17,7 @@ public class DemandForecastServiceImpl implements DemandForecastService {
     }
 
     @Override
-    public DemandForecast saveForecast(DemandForecast forecast) {
+    public DemandForecast createForecast(DemandForecast forecast) {
         return repository.save(forecast);
     }
 
