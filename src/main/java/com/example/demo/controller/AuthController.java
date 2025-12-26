@@ -1,14 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AuthRequestDto;
+import com.example.demo.dto.AuthResponseDto;
+import com.example.demo.dto.RegisterRequestDto;
+import com.example.demo.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.dto.AuthRequestDto;
-import com.example.demo.dto.RegisterRequestDto;
-import com.example.demo.service.AuthService;
-
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService service;
@@ -17,13 +17,15 @@ public class AuthController {
         this.service = service;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequestDto dto) {
-        return ResponseEntity.ok(service.register(dto));
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto dto) {
+        String token = service.login(dto);
+        return ResponseEntity.ok(new AuthResponseDto(token));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthRequestDto dto) {
-        return ResponseEntity.ok(service.login(dto));
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterRequestDto dto) {
+        service.register(dto);
+        return ResponseEntity.ok("User registered successfully");
     }
 }
