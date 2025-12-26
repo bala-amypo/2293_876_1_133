@@ -2,9 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.entity.InventoryLevel;
 
-import java.util.List;
-
-public interface InventoryService {
+public interface InventoryLevelService {
     InventoryLevel saveInventory(InventoryLevel inventory);
-    List<InventoryLevel> getByStore(Long storeId);
 }
