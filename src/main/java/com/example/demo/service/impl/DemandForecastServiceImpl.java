@@ -25,9 +25,4 @@ public class DemandForecastServiceImpl implements DemandForecastService {
     public List<DemandForecast> getForecastsForStore(Long storeId) {
         return repository.findByStore_Id(storeId);
     }
-
-    @Override
-    public List<DemandForecast> getForecastsForProduct(Long productId) {
-        return repository.findByProduct_Id(productId);
-    }
 }
