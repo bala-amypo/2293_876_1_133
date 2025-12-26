@@ -1,41 +1,35 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dto.AuthRequestDto;
-import com.example.demo.dto.RegisterRequestDto;
+import com.example.demo.dto.AuthResponseDto;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.security.JwtUtil;
 import com.example.demo.service.AuthService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository repository;
-    private final PasswordEncoder encoder;
-    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
 
-    public AuthServiceImpl(UserRepository repository,
-                           PasswordEncoder encoder,
-                           JwtUtil jwtUtil) {
-        this.repository = repository;
-        this.encoder = encoder;
-        this.jwtUtil = jwtUtil;
+    public AuthServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public void register(RegisterRequestDto dto) {
-        User user = new User();
-        user.setUsername(dto.getUsername());
-        user.setPassword(encoder.encode(dto.getPassword()));
-        repository.save(user);
-    }
+    public AuthResponseDto login(AuthRequestDto request) {
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("Invalid user"));
 
-    @Override
-    public String login(AuthRequestDto dto) {
-        User user = repository.findByUsername(dto.getUsername())
-                .orElseThrow();
-        return jwtUtil.generateToken(user.getUsername());
+        if (!user.getPassword().equals(request.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
+        }
+
+        AuthResponseDto response = new AuthResponseDto();
+        response.setUsername(user.getUsername());
+        response.setRole(user.getRole());
+        response.setToken("dummy-token");
+
+        return response;
     }
 }
