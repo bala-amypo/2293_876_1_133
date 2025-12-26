@@ -4,6 +4,8 @@ import com.example.demo.service.InventoryBalancerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class InventoryBalancerController {
 
@@ -14,7 +16,12 @@ public class InventoryBalancerController {
     }
 
     @GetMapping("/inventory/balance")
-    public String balanceInventory() {
+    public List<String> balanceInventory() {
         return service.balanceInventory();
+    }
+
+    @GetMapping("/inventory/suggestions")
+    public List<String> getSuggestions(Long productId) {
+        return service.generateSuggestions(productId);
     }
 }

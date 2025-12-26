@@ -4,7 +4,8 @@ import java.util.List;
 
 public interface InventoryBalancerService {
 
-    void balanceInventory();
+    List<String> balanceInventory(); // return list of actions
 
     List<String> generateSuggestions(Long productId);
+
 }
