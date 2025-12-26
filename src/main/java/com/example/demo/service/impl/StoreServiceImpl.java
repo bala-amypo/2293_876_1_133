@@ -5,24 +5,30 @@ import com.example.demo.repository.StoreRepository;
 import com.example.demo.service.StoreService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class StoreServiceImpl implements StoreService {
 
-    private final StoreRepository repository;
+    private final StoreRepository storeRepository;
 
-    public StoreServiceImpl(StoreRepository repository) {
-        this.repository = repository;
+    public StoreServiceImpl(StoreRepository storeRepository) {
+        this.storeRepository = storeRepository;
     }
 
     @Override
-    public Store createStore(Store store) {
-        return repository.save(store);
+    public Store updateStore(Long id, Store store) {
+        store.setId(id);
+        return storeRepository.save(store);
     }
 
     @Override
-    public List<Store> getStores() {
-        return repository.findAll();
+    public void deactivateStore(Long id) {
+        Store store = storeRepository.findById(id).orElseThrow();
+        store.setActive(false);
+        storeRepository.save(store);
+    }
+
+    @Override
+    public Store getStoreById(Long id) {
+        return storeRepository.findById(id).orElseThrow();
     }
 }
