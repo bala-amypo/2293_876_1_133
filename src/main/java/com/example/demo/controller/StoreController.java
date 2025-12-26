@@ -17,13 +17,8 @@ public class StoreController {
     }
 
     @PostMapping
-    public Store save(@RequestBody Store store) {
-        return service.save(store);
-    }
-
-    @GetMapping("/{id}")
-    public Store getById(@PathVariable Long id) {
-        return service.getStoreById(id);
+    public Store create(@RequestBody Store store) {
+        return service.createStore(store);
     }
 
     @GetMapping

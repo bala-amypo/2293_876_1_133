@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface InventoryLevelRepository extends JpaRepository<InventoryLevel, Long> {
-    List<InventoryLevel> findByStore_Id(Long storeId);
-    List<InventoryLevel> findByProduct_Id(Long productId);
+    List<InventoryLevel> findByProductId(Long productId);
 }

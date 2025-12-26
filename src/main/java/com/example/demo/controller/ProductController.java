@@ -17,13 +17,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product save(@RequestBody Product product) {
-        return service.save(product);
-    }
-
-    @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id) {
-        return service.getProductById(id);
+    public Product create(@RequestBody Product product) {
+        return service.createProduct(product);
     }
 
     @GetMapping
