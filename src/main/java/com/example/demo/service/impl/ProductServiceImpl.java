@@ -10,13 +10,19 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository repo;
+    private final ProductRepository repository;
 
-    public ProductServiceImpl(ProductRepository repo) {
-        this.repo = repo;
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
     }
 
-    public Product save(Product product) { return repo.save(product); }
-    public Product getProductById(Long id) { return repo.findById(id).orElse(null); }
-    public List<Product> getProducts() { return repo.findAll(); }
+    @Override
+    public Product createProduct(Product product) {
+        return repository.save(product);
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return repository.findAll();
+    }
 }

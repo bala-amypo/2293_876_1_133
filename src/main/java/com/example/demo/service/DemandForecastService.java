@@ -4,6 +4,6 @@ import com.example.demo.entity.DemandForecast;
 import java.util.List;
 
 public interface DemandForecastService {
-    DemandForecast saveForecast(DemandForecast forecast);
-    List<DemandForecast> findByStoreId(Long storeId);
+    DemandForecast createForecast(DemandForecast forecast);
+    List<DemandForecast> getForecastsForStore(Long storeId);
 }

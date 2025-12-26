@@ -4,7 +4,6 @@ import com.example.demo.entity.Product;
 import java.util.List;
 
 public interface ProductService {
-    Product save(Product product);
-    Product getProductById(Long id);
+    Product createProduct(Product product);
     List<Product> getProducts();
 }

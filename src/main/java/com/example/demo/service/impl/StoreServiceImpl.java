@@ -10,13 +10,19 @@ import java.util.List;
 @Service
 public class StoreServiceImpl implements StoreService {
 
-    private final StoreRepository repo;
+    private final StoreRepository repository;
 
-    public StoreServiceImpl(StoreRepository repo) {
-        this.repo = repo;
+    public StoreServiceImpl(StoreRepository repository) {
+        this.repository = repository;
     }
 
-    public Store save(Store store) { return repo.save(store); }
-    public Store getStoreById(Long id) { return repo.findById(id).orElse(null); }
-    public List<Store> getStores() { return repo.findAll(); }
+    @Override
+    public Store createStore(Store store) {
+        return repository.save(store);
+    }
+
+    @Override
+    public List<Store> getStores() {
+        return repository.findAll();
+    }
 }
