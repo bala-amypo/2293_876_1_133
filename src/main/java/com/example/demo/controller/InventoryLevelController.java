@@ -12,26 +12,22 @@ public class InventoryLevelController {
 
     private final InventoryLevelService service;
 
-    public InventoryLevelController(
-            InventoryLevelService service) {
+    public InventoryLevelController(InventoryLevelService service) {
         this.service = service;
     }
 
     @PostMapping
-    public InventoryLevel save(
-            @RequestBody InventoryLevel inventory) {
+    public InventoryLevel save(@RequestBody InventoryLevel inventory) {
         return service.saveInventory(inventory);
     }
 
     @GetMapping("/store/{storeId}")
-    public List<InventoryLevel> byStore(
-            @PathVariable Long storeId) {
-        return service.getByStore(storeId);
+    public List<InventoryLevel> byStore(@PathVariable Long storeId) {
+        return service.findByStoreId(storeId);
     }
 
     @GetMapping("/product/{productId}")
-    public List<InventoryLevel> byProduct(
-            @PathVariable Long productId) {
-        return service.getByProduct(productId);
+    public List<InventoryLevel> byProduct(@PathVariable Long productId) {
+        return service.findByProductId(productId);
     }
 }

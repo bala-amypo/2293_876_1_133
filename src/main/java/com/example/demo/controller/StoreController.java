@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stores")
+@RequestMapping("/stores")
 public class StoreController {
 
     private final StoreService service;
@@ -17,17 +17,17 @@ public class StoreController {
     }
 
     @PostMapping
-    public Store create(@RequestBody Store store) {
-        return service.create(store);
+    public Store save(@RequestBody Store store) {
+        return service.save(store);
     }
 
     @GetMapping("/{id}")
     public Store getById(@PathVariable Long id) {
-        return service.getById(id);
+        return service.getStoreById(id);
     }
 
     @GetMapping
     public List<Store> getAll() {
-        return service.getAll();
+        return service.getStores();
     }
 }
