@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 public class InventoryBalancerServiceImpl implements InventoryBalancerService {
 
     @Override
+    public String balanceInventory() {
+        return "Inventory balanced successfully";
+    }
+
+    @Override
     public String getSuggestionById(Long id) {
         return "Suggestion for inventory id " + id;
     }
