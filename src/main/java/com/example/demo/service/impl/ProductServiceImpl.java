@@ -5,24 +5,37 @@ import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepository;
+    private final ProductRepository repository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        product.setActive(true);
+        return repository.save(product);
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return repository.findAll();
     }
 
     @Override
     public void deactivateProduct(Long id) {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = repository.findById(id).orElseThrow();
         product.setActive(false);
-        productRepository.save(product);
+        repository.save(product);
     }
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow();
     }
 }

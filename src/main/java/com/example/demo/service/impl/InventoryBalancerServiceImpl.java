@@ -9,6 +9,12 @@ import java.util.List;
 public class InventoryBalancerServiceImpl implements InventoryBalancerService {
 
     @Override
+    public void balanceInventory() {
+        // simple placeholder logic
+        System.out.println("Balancing inventory across stores...");
+    }
+
+    @Override
     public List<String> generateSuggestions(Long storeId) {
         return List.of("Move excess stock", "Reorder low inventory");
     }
