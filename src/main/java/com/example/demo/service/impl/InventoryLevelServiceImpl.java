@@ -10,24 +10,21 @@ import java.util.List;
 @Service
 public class InventoryLevelServiceImpl implements InventoryLevelService {
 
-    private final InventoryLevelRepository repository;
+    private final InventoryLevelRepository repo;
 
-    public InventoryLevelServiceImpl(InventoryLevelRepository repository) {
-        this.repository = repository;
+    public InventoryLevelServiceImpl(InventoryLevelRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public InventoryLevel createOrUpdateInventory(InventoryLevel inv) {
-        return repository.save(inv);
+    public InventoryLevel saveInventory(InventoryLevel inventory) {
+        return repo.save(inventory);
     }
 
-    @Override
-    public List<InventoryLevel> getInventoryForStore(Long storeId) {
-        return repository.findByStoreId(storeId);
+    public List<InventoryLevel> findByStoreId(Long storeId) {
+        return repo.findAll();
     }
 
-    @Override
-    public List<InventoryLevel> getInventoryForProduct(Long productId) {
-        return repository.findByProductId(productId);
+    public List<InventoryLevel> findByProductId(Long productId) {
+        return repo.findAll();
     }
 }
