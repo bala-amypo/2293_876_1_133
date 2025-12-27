@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stores")
+@RequestMapping("/api/stores")
 public class StoreController {
 
-    private final StoreService service;
+    private final StoreService storeService;
 
-    public StoreController(StoreService service) {
-        this.service = service;
+    public StoreController(StoreService storeService) {
+        this.storeService = storeService;
     }
 
     @PostMapping
-    public Store create(@RequestBody Store store) {
-        return service.createStore(store);
+    public Store createStore(@RequestBody Store store) {
+        return storeService.createStore(store);
     }
 
     @GetMapping
-    public List<Store> getAll() {
-        return service.getStores();
+    public List<Store> getAllStores() {
+        return storeService.getAllStores();
     }
 }
