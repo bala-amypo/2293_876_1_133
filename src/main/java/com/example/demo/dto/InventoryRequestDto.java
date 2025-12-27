@@ -1,40 +1,32 @@
-// package com.example.demo.dto;
+package com.example.demo.dto;
 
-// public class InventoryRequestDto {
+public class InventoryRequest {
 
-//     private Long storeId;
-//     private Long productId;
-//     private Integer quantity;
+    private Long storeId;
+    private Long productId;
+    private int quantity;
 
-//     public InventoryRequestDto() {}
+    public Long getStoreId() {
+        return storeId;
+    }
 
-//     public InventoryRequestDto(Long storeId, Long productId, Integer quantity) {
-//         this.storeId = storeId;
-//         this.productId = productId;
-//         this.quantity = quantity;
-//     }
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
 
-//     public Long getStoreId() {
-//         return storeId;
-//     }
+    public Long getProductId() {
+        return productId;
+    }
 
-//     public Long getProductId() {
-//         return productId;
-//     }
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
-//     public Integer getQuantity() {
-//         return quantity;
-//     }
+    public int getQuantity() {
+        return quantity;
+    }
 
-//     public void setStoreId(Long storeId) {
-//         this.storeId = storeId;
-//     }
-
-//     public void setProductId(Long productId) {
-//         this.productId = productId;
-//     }
-
-//     public void setQuantity(Integer quantity) {
-//         this.quantity = quantity;
-//     }
-// }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+}
