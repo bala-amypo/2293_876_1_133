@@ -1,28 +1,33 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.DemandForecast;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.DemandForecastRepository;
 import com.example.demo.service.DemandForecastService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class DemandForecastServiceImpl implements DemandForecastService {
 
-    private final DemandForecastRepository repository;
+    private final DemandForecastRepository forecastRepo;
 
-    public DemandForecastServiceImpl(DemandForecastRepository repository) {
-        this.repository = repository;
+    public DemandForecastServiceImpl(DemandForecastRepository forecastRepo) {
+        this.forecastRepo = forecastRepo;
     }
 
     @Override
     public DemandForecast createForecast(DemandForecast forecast) {
-        return repository.save(forecast);
+        if (forecast.getForecastDate().isBefore(LocalDate.now())) {
+            throw new BadRequestException("Forecast date must be future");
+        }
+        return forecastRepo.save(forecast);
     }
 
     @Override
     public List<DemandForecast> getForecastsForStore(Long storeId) {
-        return repository.findByStore_Id(storeId);
+        return forecastRepo.findByStore_Id(storeId);
     }
 }

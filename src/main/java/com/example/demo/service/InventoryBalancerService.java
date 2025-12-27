@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.TransferSuggestion;
 import java.util.List;
 
 public interface InventoryBalancerService {
-
-    List<String> balanceInventory(); // return list of actions
-
-    List<String> generateSuggestions(Long productId);
-
+    List<TransferSuggestion> generateSuggestions(Long productId);
+    TransferSuggestion getSuggestionById(Long id);
 }

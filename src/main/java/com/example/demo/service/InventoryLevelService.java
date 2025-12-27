@@ -5,8 +5,13 @@ import java.util.List;
 
 public interface InventoryLevelService {
 
-    InventoryLevel createOrUpdateInventory(InventoryLevel inventory);  // 👈 ADD
-    List<InventoryLevel> getInventoryForProduct(Long productId);        // 👈 ADD
+    // ✅ REQUIRED BY TESTS
+    InventoryLevel createOrUpdateInventory(InventoryLevel inventory);
+
+    // ✅ INTERNAL LOGIC METHOD
+    InventoryLevel createOrUpdateInventory(Long storeId, Long productId, int quantity);
 
     List<InventoryLevel> getInventoryForStore(Long storeId);
+
+    List<InventoryLevel> getInventoryForProduct(Long productId);
 }
