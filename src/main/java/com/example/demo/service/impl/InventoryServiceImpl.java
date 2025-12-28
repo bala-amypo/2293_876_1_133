@@ -9,55 +9,30 @@ import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.StoreRepository;
 import com.example.demo.service.InventoryService;
 import org.springframework.stereotype.Service;
-
 @Service
 public class InventoryServiceImpl implements InventoryService {
 
-    private final InventoryRepository inventoryRepository;
-    private final StoreRepository storeRepository;
-    private final ProductRepository productRepository;
-
-    public InventoryServiceImpl(
-            InventoryRepository inventoryRepository,
-            StoreRepository storeRepository,
-            ProductRepository productRepository
-    ) {
-        this.inventoryRepository = inventoryRepository;
-        this.storeRepository = storeRepository;
-        this.productRepository = productRepository;
-    }
+    @Autowired
+    private InventoryRepository inventoryRepository;
 
     @Override
-    public InventoryLevel createOrUpdateInventory(
-            Long storeId,
-            Long productId,
-            int quantity
-    ) {
+    public Inventory createOrUpdateInventory(Inventory inventory) {
 
-        if (quantity < 0) {
-            throw new BadRequestException("Quantity cannot be negative");
+        Inventory entity;
+
+        // ✅ FIX: Only call findById if ID is NOT null
+        if (inventory.getId() != null) {
+            entity = inventoryRepository
+                    .findById(inventory.getId())
+                    .orElse(new Inventory());
+        } else {
+            entity = new Inventory();
         }
 
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new BadRequestException("Store not found"));
+        entity.setProduct(inventory.getProduct());
+        entity.setStore(inventory.getStore());
+        entity.setQuantity(inventory.getQuantity());
 
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BadRequestException("Product not found"));
-
-        return inventoryRepository
-                .findByStoreIdAndProductId(storeId, productId)
-                .map(existing -> {
-                    // ✅ UPDATE EXISTING INVENTORY
-                    existing.setQuantity(quantity);
-                    return inventoryRepository.save(existing);
-                })
-                .orElseGet(() -> {
-                    // ✅ CREATE NEW INVENTORY
-                    InventoryLevel inventory = new InventoryLevel();
-                    inventory.setStore(store);
-                    inventory.setProduct(product);
-                    inventory.setQuantity(quantity);
-                    return inventoryRepository.save(inventory);
-                });
+        return inventoryRepository.save(entity);
     }
 }
