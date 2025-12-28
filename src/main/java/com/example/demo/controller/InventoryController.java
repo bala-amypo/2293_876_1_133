@@ -1,47 +1,33 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.InventoryRequest;
 import com.example.demo.entity.InventoryLevel;
-import com.example.demo.repository.InventoryLevelRepository;
-import com.example.demo.service.InventoryService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.example.demo.service.InventoryLevelService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/inventory")
-public class InventoryController {
+public class InventoryLevelController {
 
-    private final InventoryService inventoryService;
-    private final InventoryLevelRepository inventoryRepo;
+    private final InventoryLevelService service;
 
-    public InventoryController(
-            InventoryService inventoryService,
-            InventoryLevelRepository inventoryRepo) {
-        this.inventoryService = inventoryService;
-        this.inventoryRepo = inventoryRepo;
+    public InventoryLevelController(InventoryLevelService service) {
+        this.service = service;
     }
 
-    @PostMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<InventoryLevel> createInventory(
-            @RequestBody InventoryRequest req) {
+    @PostMapping
+    public InventoryLevel createOrUpdate(@RequestBody InventoryLevel inv) {
+        return service.createOrUpdateInventory(inv);
+    }
 
-        InventoryLevel saved = inventoryService.createOrUpdateInventory(
-                req.getStoreId(),
-                req.getProductId(),
-                req.getQuantity()
-        );
+    @GetMapping("/store/{storeId}")
+    public List<InventoryLevel> byStore(@PathVariable Long storeId) {
+        return service.getInventoryForStore(storeId);
+    }
 
-        // 🔥 Force full initialization for JSON response
-        InventoryLevel full =
-                inventoryRepo.findById(saved.getId()).orElse(saved);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)   // 🔥 THIS IS THE KEY
-                .body(full);
+    @GetMapping("/product/{productId}")
+    public List<InventoryLevel> byProduct(@PathVariable Long productId) {
+        return service.getInventoryForProduct(productId);
     }
 }
