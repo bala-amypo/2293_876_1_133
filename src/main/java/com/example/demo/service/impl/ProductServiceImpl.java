@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Product;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
@@ -11,32 +12,30 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepo;
+    private final ProductRepository repo;
 
-    public ProductServiceImpl(ProductRepository productRepo) {
-        this.productRepo = productRepo;
+    public ProductServiceImpl(ProductRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
     public Product createProduct(Product product) {
-        return productRepo.save(product);
+        repo.findBySku(product.getSku())
+                .ifPresent(p -> { throw new BadRequestException("SKU already exists"); });
+        return repo.save(product);
     }
 
-    @Override
-    public void deactivateProduct(Long id) {
-        Product product = getProductById(id);
-        product.setActive(false);
-        productRepo.save(product);
-    }
-
-    @Override
     public Product getProductById(Long id) {
-        return productRepo.findById(id)
+        return repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
-    @Override
     public List<Product> getAllProducts() {
-        return productRepo.findAll();
+        return repo.findAll();
+    }
+
+    public void deactivateProduct(Long id) {
+        Product p = getProductById(id);
+        p.setActive(false);
+        repo.save(p);
     }
 }

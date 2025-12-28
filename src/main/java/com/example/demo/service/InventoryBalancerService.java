@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface InventoryBalancerService {
     List<TransferSuggestion> generateSuggestions(Long productId);
+    List<TransferSuggestion> getSuggestionsForStore(Long storeId);
     TransferSuggestion getSuggestionById(Long id);
 }
